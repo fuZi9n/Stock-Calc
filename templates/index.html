@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Stock Price</title>
+</head>
+<body>
+    <h1>Live Stock Price of ASTS</h1>
+    <div id="stock-price">Loading...</div>
+
+    <script>
+        function fetchStockPrice() {
+            fetch('/price')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('stock-price').innerText = '$' + data.price.toFixed(2);
+                })
+                .catch(error => console.error('Error fetching stock price:', error));
+        }
+
+        setInterval(fetchStockPrice, 5000); // Fetch stock price every 5 seconds
+        fetchStockPrice(); // Initial fetch
+    </script>
+</body>
+</html>
